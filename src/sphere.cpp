@@ -1,6 +1,6 @@
 #include "sphere.h"
 
-bool Sphere::hit(Ray &ray, HitRecord &rec)
+bool Sphere::hit(Ray& ray, HitRecord& rec)
 {
     Vec3 oc = ray.pos - pos;
 
@@ -33,8 +33,7 @@ bool Sphere::hit(Ray &ray, HitRecord &rec)
     rec.uv = Vec3(
         0.5 + atan2(rec.normal.z, rec.normal.x) / (2 * M_PI),
         0.5 + asin(rec.normal.y) / M_PI,
-        0
-    );
+        0);
 
     return true;
 }

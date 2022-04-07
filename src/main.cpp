@@ -1,23 +1,24 @@
+#include <assert.h>
+#include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
-#include <iostream>
-#include <assert.h>
 
-#include "image.h"
 #include "camera.h"
-#include "sphere.h"
-#include "scene.h"
-#include "texture.h"
+#include "image.h"
 #include "ray.h"
 #include "rng.h"
+#include "scene.h"
+#include "sphere.h"
+#include "texture.h"
 
 constexpr int MAX_DEPTH = 10;
 
-Vec3 reflect_perfectly(const Vec3 &dir, const Vec3 &n) {
+Vec3 reflect_perfectly(const Vec3& dir, const Vec3& n)
+{
     return dir - 2 * dot(dir, n) * n;
 }
 
-Vec3 raytrace(Scene &scene, Ray& ray)
+Vec3 raytrace(Scene& scene, Ray& ray)
 {
     HitRecord rec;
     const Vec3 sky_color = Vec3(173, 237, 255) / 255;
@@ -28,7 +29,7 @@ Vec3 raytrace(Scene &scene, Ray& ray)
         if (!scene.hit(ray, rec))
             return result * sky_color;
 
-        Sphere *obj = rec.obj;
+        Sphere* obj = rec.obj;
         result = result * obj->tex->at(rec.uv);
 
         Vec3 dir;
@@ -47,8 +48,8 @@ Vec3 raytrace(Scene &scene, Ray& ray)
     return 0;
 }
 
-
-int main() {
+int main()
+{
     const int WIDTH = 800;
     const int HEIGHT = 500;
     const int NUM_SAMPLES = 200;
@@ -66,7 +67,7 @@ int main() {
         for (int i = 0; i < WIDTH; ++i) {
             Vec3 col = Vec3();
             for (int sample = 0; sample < NUM_SAMPLES; ++sample) {
-                Ray ray = cam.get_ray(i, HEIGHT-j-1);
+                Ray ray = cam.get_ray(i, HEIGHT - j - 1);
                 col = col + raytrace(scene, ray);
             }
             img.set_pixel(i, j, col / NUM_SAMPLES);

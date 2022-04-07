@@ -9,7 +9,7 @@ struct HitRecord {
     Vec3 pos;
     Vec3 normal;
     Vec3 uv;
-    Sphere *obj;
+    Sphere* obj;
 };
 
 struct Ray {
@@ -22,7 +22,8 @@ struct Ray {
     {
     }
 
-    Vec3 at(float t) const {
+    Vec3 at(float t) const
+    {
         return pos + t * dir;
     }
 };

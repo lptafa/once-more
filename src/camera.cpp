@@ -19,11 +19,10 @@ void Camera::set_resolution(int width, int height)
 
 Ray Camera::get_ray(int i, int j)
 {
-    float dx = (i + drand48()) / (float)width ;
+    float dx = (i + drand48()) / (float)width;
     float dy = (j + drand48()) / (float)height;
 
     return Ray(
         pos,
-        normalized(corner + (dx * horizontal) + (dy * vertical) - pos)
-    );
+        normalized(corner + (dx * horizontal) + (dy * vertical) - pos));
 }

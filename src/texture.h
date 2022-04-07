@@ -12,13 +12,15 @@ struct SolidColor : Texture {
         : color(color)
     {
     }
-    Vec3 at(Vec3 uv) const {
+    Vec3 at(Vec3 uv) const
+    {
         return color;
     }
 };
 
 struct CheckeredTexture : Texture {
-    Vec3 at(Vec3 uv) const {
+    Vec3 at(Vec3 uv) const
+    {
         float factor = 100;
         int dx = uv.x * factor;
         int dy = uv.y * factor;
