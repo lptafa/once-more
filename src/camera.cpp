@@ -1,4 +1,5 @@
 #include "camera.h"
+#include <stdlib.h>
 
 void Camera::set_resolution(int width, int height)
 {
@@ -18,8 +19,8 @@ void Camera::set_resolution(int width, int height)
 
 Ray Camera::get_ray(int i, int j)
 {
-    float dx = i / (float)width;
-    float dy = j / (float)height;
+    float dx = (i + drand48()) / (float)width ;
+    float dy = (j + drand48()) / (float)height;
 
     return Ray(
         pos,

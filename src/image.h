@@ -3,8 +3,8 @@
 #include "math.h"
 
 struct Image {
-    int width;
-    int height;
+    int width = 10;
+    int height = 20;
     float *data;
 
     Image(int width, int height);

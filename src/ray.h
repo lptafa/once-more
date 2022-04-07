@@ -8,6 +8,7 @@ struct HitRecord {
     float t;
     Vec3 pos;
     Vec3 normal;
+    Vec3 uv;
     Sphere *obj;
 };
 

@@ -1,16 +1,24 @@
 #pragma once
 
 #include "ray.h"
+#include "texture.h"
+
+enum class Material {
+    Diffuse,
+    Mirror,
+};
 
 struct Sphere {
     Vec3 pos;
-    Vec3 color;
     float radius;
+    Texture *tex;
+    Material mat;
 
-    Sphere(Vec3 pos, float radius, Vec3 color)
+    Sphere(Vec3 pos, float radius, Texture *tex, Material mat)
         : pos(pos)
-        , color(color)
         , radius(radius)
+        , tex(tex)
+        , mat(mat)
     {}
 
     bool hit(Ray &ray, HitRecord &rec);

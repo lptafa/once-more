@@ -13,7 +13,8 @@ struct Camera {
     Vec3 corner, horizontal, vertical;
 
     Camera(Vec3 pos, Vec3 dir, Vec3 up, float fov)
-        : fov(fov)
+        : pos(pos)
+        , fov(fov)
     {
         // "Camera coordinate system"
         w = normalized(-dir);

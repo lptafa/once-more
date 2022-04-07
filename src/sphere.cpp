@@ -29,5 +29,12 @@ bool Sphere::hit(Ray &ray, HitRecord &rec)
     // Normal at surface of intersection
     rec.normal = normalized(rec.pos - pos);
     rec.obj = this;
+    // Compute UV coordinates for texture mapping
+    rec.uv = Vec3(
+        0.5 + atan2(rec.normal.z, rec.normal.x) / (2 * M_PI),
+        0.5 + asin(rec.normal.y) / M_PI,
+        0
+    );
+
     return true;
 }
