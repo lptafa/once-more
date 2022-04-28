@@ -1,6 +1,9 @@
 #pragma once
 
+#include <cassert>
+
 #include "math.h"
+#include "image.h"
 
 struct Texture {
     virtual Vec3 at(Vec3 uv) const = 0;
@@ -15,6 +18,20 @@ struct SolidColor : Texture {
     Vec3 at(Vec3 uv) const
     {
         return color;
+    }
+};
+
+struct ImageTexture : Texture {
+    Image *img;
+    ImageTexture(Image *img)
+        : img(img)
+    {
+    }
+    Vec3 at(Vec3 uv) const
+    {
+        assert(uv.u >= 0 && uv.u <= 1);
+        assert(uv.v >= 0 && uv.v <= 1);
+        return img->pixel(uv.x * img->width, uv.y * img->height);
     }
 };
 

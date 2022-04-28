@@ -17,3 +17,7 @@ don't judge me
 - mirror objects
 - uv and texture mapping
 
+## day 3
+
+- Roughness on objects
+- Load in image as textures

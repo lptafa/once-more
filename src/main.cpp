@@ -13,11 +13,6 @@
 
 constexpr int MAX_DEPTH = 10;
 
-Vec3 reflect_perfectly(const Vec3& dir, const Vec3& n)
-{
-    return dir - 2 * dot(dir, n) * n;
-}
-
 Vec3 raytrace(Scene& scene, Ray& ray)
 {
     HitRecord rec;
@@ -32,14 +27,7 @@ Vec3 raytrace(Scene& scene, Ray& ray)
         Sphere* obj = rec.obj;
         result = result * obj->tex->at(rec.uv);
 
-        Vec3 dir;
-
-        if (obj->mat == Material::Diffuse)
-            dir = random_vec_hemisphere(rec.normal);
-        else if (obj->mat == Material::Mirror)
-            dir = reflect_perfectly(ray.dir, rec.normal);
-        else
-            assert(false && "Unhandled material");
+        Vec3 dir = obj->mat->sample_direction(ray, rec);
 
         ray.pos = rec.pos;
         ray.dir = dir;
@@ -52,16 +40,16 @@ int main()
 {
     const int WIDTH = 800;
     const int HEIGHT = 500;
-    const int NUM_SAMPLES = 200;
+    const int NUM_SAMPLES = 50;
 
     Image img = Image(WIDTH, HEIGHT);
     Camera cam = Camera(Vec3(0, 0, 0), Vec3(0, 0, 1), Vec3(0, 1, 0), 90);
     cam.set_resolution(WIDTH, HEIGHT);
 
     Scene scene;
-    scene.add(Sphere(Vec3(0, -100.5, 1), 100, new SolidColor(Vec3(1, 0.6, 0.3)), Material::Diffuse));
-    scene.add(Sphere(Vec3(-0.5, 0, 1), 0.5, new CheckeredTexture(), Material::Diffuse));
-    scene.add(Sphere(Vec3(0.5, 0, 1), 0.5, new SolidColor(Vec3(1, 0.5, 0.5)), Material::Mirror));
+    scene.add(Sphere(Vec3(0, -100.5, 1), 100, new SolidColor(Vec3(1, 0.6, 0.3)),       new Material(1.0)));
+    scene.add(Sphere(Vec3(-0.5, 0, 1), 0.5,   new ImageTexture(new Image("earth.ppm")),new Material(1.0)));
+    scene.add(Sphere(Vec3(0.5, 0, 1), 0.5,    new SolidColor(Vec3(1, 0.5, 0.5)),       new Material(0.1)));
 
     for (int j = 0; j < HEIGHT; ++j) {
         for (int i = 0; i < WIDTH; ++i) {
