@@ -1,23 +1,24 @@
 # yeah, one more ray tracer
 
-don't judge me
+A Basic raytracer with WIP support for python bindings
 
 ---
 
-## day 1
+## Run raytracer
 
-- image output
-- setup camera and scene
-- basic raytracing setup
-- diffuse object materials
+```bash
+$ ./run.sh
+```
 
-## day 2
+## Generate Python bindings
 
-- anti-aliasing
-- mirror objects
-- uv and texture mapping
+You need to make sure you have `pybind11` installed. You can do this through `pip install pybind11`.
 
-## day 3
-
-- Roughness on objects
-- Load in image as textures
+```bash
+$ ./gen_bindings.sh
+$ python3
+>>> import raytrace as rt
+>>> rt.Vec3(1, 2, 3)
+(1.000000, 2.000000, 3.000000)
+```
+---
