@@ -2,5 +2,5 @@
 
 set -xe
 
-g++ -std=c++17 src/*.cpp -o rt -Wall -O3
+g++ -std=c++17 raytrace/*.cpp -o rt -Wall -O3
 time ./rt "$@"
